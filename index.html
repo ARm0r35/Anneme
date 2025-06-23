@@ -1,25 +1,29 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Anneme Mektup</title>
   <style>
     body {
       margin: 0;
       padding: 0;
       overflow: hidden;
-      background: black;
       font-family: 'Georgia', serif;
+      background: black;
     }
 
-    .stars {
+    /* Hareketli yıldızlı uzay arka planı */
+    body::before {
+      content: "";
       position: fixed;
-      width: 100%;
-      height: 100%;
-      background: url('https://i.imgur.com/5VgY4Zy.gif') repeat;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: url("https://i.imgur.com/oZp3pV6.gif") repeat;
       background-size: cover;
-      z-index: 0;
+      z-index: -1;
+      opacity: 0.7;
     }
 
     .envelope-container {
@@ -47,15 +51,17 @@
       transform: translateX(-50%);
       width: 80%;
       max-width: 800px;
+      max-height: 70vh;       /* Yüksekliği sınırla */
       padding: 30px;
       background-color: rgba(255, 255, 255, 0.95);
       border-radius: 15px;
       box-shadow: 0 0 15px white;
       z-index: 2;
       color: #222;
-      font-size: 1.1em;
-      line-height: 1.8;
+      font-size: 1em;         /* Yazı biraz daha küçük */
+      line-height: 1.6;
       white-space: pre-wrap;
+      overflow-y: auto;       /* Dikey kaydırma aktif */
     }
 
     .hidden {
@@ -64,10 +70,8 @@
   </style>
 </head>
 <body>
-  <div class="stars"></div>
-
   <div class="envelope-container">
-    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Zarf" id="envelope">
+    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Zarf" id="envelope" />
   </div>
 
   <div class="letter hidden" id="letter">
@@ -77,19 +81,13 @@
   <script>
     const mektup = `Sevgili Anneciğim,
 
-Bu mektubu sana, içimden geçenleri bir kâğıda dökebilmek ve belki de senin yüzünde
- küçük bir gülümseme bırakabilmek için yazıyorum.
+Bu mektubu sana, içimden geçenleri bir kâğıda dökebilmek ve belki de senin yüzünde küçük bir gülümseme bırakabilmek için yazıyorum.
 
-Hayatımda bana verdiğin emek, sevgi ve sabır için sana ne kadar teşekkür etsem az.
- Belki her zaman söyleyemiyorum ama ben senin güçlü kalbini, her şeye rağmen dimdik 
- duruşunu ve bana kattığın her şeyi derinden hissediyorum.
+Hayatımda bana verdiğin emek, sevgi ve sabır için sana ne kadar teşekkür etsem az. Belki her zaman söyleyemiyorum ama ben senin güçlü kalbini, her şeye rağmen dimdik duruşunu ve bana kattığın her şeyi derinden hissediyorum.
 
-Senin bir gülüşün bana her zaman huzur oldu. Bazen yorgun olsan da yine de beni düşündün,
- bazen kendinden vazgeçip bana yol gösterdin. Senin varlığın bana hep güç verdi, 
- bu mektubu da o gücü hissettiğim için yazıyorum.
+Senin bir gülüşün bana her zaman huzur oldu. Bazen yorgun olsan da yine de beni düşündün, bazen kendinden vazgeçip bana yol gösterdin. Senin varlığın bana hep güç verdi, bu mektubu da o gücü hissettiğim için yazıyorum.
 
-Seni çok ama çok seviyorum anneciğim.
- İyi ki varsın. İyi ki benim annemsin.
+Seni çok ama çok seviyorum anneciğim. İyi ki varsın. İyi ki benim annemsin.
 
 Her şey için teşekkür ederim.
 Senin evladın olmaktan gurur duyuyorum.
@@ -110,7 +108,7 @@ Tuğra`;
         if (index === mektup.length) {
           clearInterval(typeInterval);
         }
-      }, 40); // yazı hızı (ms)
+      }, 40);
     });
   </script>
 </body>
