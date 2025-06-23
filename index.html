@@ -39,16 +39,22 @@
     }
 
     .envelope-container {
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+      display: inline-block;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      cursor: pointer;
       z-index: 1;
     }
 
     .envelope-container img {
       width: 200px;
-      cursor: pointer;
+      display: block;
       transition: transform 0.3s ease;
     }
 
@@ -74,21 +80,22 @@
       line-height: 1.6;
       white-space: pre-wrap;
       overflow-y: auto;
+      display: none; /* başlangıçta gizli */
     }
 
-    .hidden {
-      display: none;
+    .letter.visible {
+      display: block;
     }
   </style>
 </head>
 <body>
   <div id="stars"></div>
 
-  <div class="envelope-container">
-    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Zarf" id="envelope" />
+  <div class="envelope-container" id="envelopeContainer">
+    <img src="https://cdn-icons-png.flaticon.com/512/561/561133.png" alt="Zarf" id="envelope" />
   </div>
 
-  <div class="letter hidden" id="letter">
+  <div class="letter" id="letter">
     <pre id="typedText"></pre>
   </div>
 
@@ -131,9 +138,9 @@ Seni çok seven oğlun,
 Tuğra`;
 
     // Zarf tıklama olayı
-    document.getElementById("envelope").addEventListener("click", () => {
-      document.getElementById("letter").classList.remove("hidden");
-      document.getElementById("envelope").style.display = "none";
+    document.getElementById("envelopeContainer").addEventListener("click", () => {
+      document.getElementById("letter").classList.add("visible");
+      document.getElementById("envelopeContainer").style.display = "none";
 
       const textElement = document.getElementById("typedText");
       let index = 0;
