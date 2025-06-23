@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Anneme Mektup</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      background: black;
+      font-family: 'Georgia', serif;
+    }
+
+    .stars {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      background: url('https://i.imgur.com/5VgY4Zy.gif') repeat;
+      background-size: cover;
+      z-index: 0;
+    }
+
+    .envelope-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+    }
+
+    .envelope-container img {
+      width: 200px;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+    }
+
+    .envelope-container img:hover {
+      transform: scale(1.1);
+    }
+
+    .letter {
+      position: absolute;
+      top: 15%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80%;
+      max-width: 800px;
+      padding: 30px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 15px;
+      box-shadow: 0 0 15px white;
+      z-index: 2;
+      color: #222;
+      font-size: 1.1em;
+      line-height: 1.8;
+      white-space: pre-wrap;
+    }
+
+    .hidden {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+
+  <div class="envelope-container">
+    <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Zarf" id="envelope">
+  </div>
+
+  <div class="letter hidden" id="letter">
+    <pre id="typedText"></pre>
+  </div>
+
+  <script>
+    const mektup = `Sevgili Anneciğim,
+
+Bu mektubu sana, içimden geçenleri bir kâğıda dökebilmek ve belki de senin yüzünde
+ küçük bir gülümseme bırakabilmek için yazıyorum.
+
+Hayatımda bana verdiğin emek, sevgi ve sabır için sana ne kadar teşekkür etsem az.
+ Belki her zaman söyleyemiyorum ama ben senin güçlü kalbini, her şeye rağmen dimdik 
+ duruşunu ve bana kattığın her şeyi derinden hissediyorum.
+
+Senin bir gülüşün bana her zaman huzur oldu. Bazen yorgun olsan da yine de beni düşündün,
+ bazen kendinden vazgeçip bana yol gösterdin. Senin varlığın bana hep güç verdi, 
+ bu mektubu da o gücü hissettiğim için yazıyorum.
+
+Seni çok ama çok seviyorum anneciğim.
+ İyi ki varsın. İyi ki benim annemsin.
+
+Her şey için teşekkür ederim.
+Senin evladın olmaktan gurur duyuyorum.
+
+Seni çok seven oğlun,
+Tuğra`;
+
+    document.getElementById("envelope").addEventListener("click", () => {
+      document.getElementById("letter").classList.remove("hidden");
+      document.getElementById("envelope").style.display = "none";
+
+      const textElement = document.getElementById("typedText");
+      let index = 0;
+
+      const typeInterval = setInterval(() => {
+        textElement.textContent += mektup[index];
+        index++;
+        if (index === mektup.length) {
+          clearInterval(typeInterval);
+        }
+      }, 40); // yazı hızı (ms)
+    });
+  </script>
+</body>
+</html>
