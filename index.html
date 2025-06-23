@@ -11,19 +11,31 @@
       overflow: hidden;
       font-family: 'Georgia', serif;
       background: black;
+      color: #222;
     }
 
-    /* Hareketli yıldızlı uzay arka planı */
-    body::before {
-      content: "";
+    /* Yıldız arka plan container */
+    #stars {
       position: fixed;
       top: 0; left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: url("https://i.imgur.com/oZp3pV6.gif") repeat;
-      background-size: cover;
-      z-index: -1;
-      opacity: 0.7;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      background: black;
+    }
+
+    /* Yıldızların stili */
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 3s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      0% { opacity: 0.2; }
+      100% { opacity: 1; }
     }
 
     .envelope-container {
@@ -51,17 +63,17 @@
       transform: translateX(-50%);
       width: 80%;
       max-width: 800px;
-      max-height: 70vh;       /* Yüksekliği sınırla */
+      max-height: 70vh;
       padding: 30px;
       background-color: rgba(255, 255, 255, 0.95);
       border-radius: 15px;
       box-shadow: 0 0 15px white;
       z-index: 2;
       color: #222;
-      font-size: 1em;         /* Yazı biraz daha küçük */
+      font-size: 1em;
       line-height: 1.6;
       white-space: pre-wrap;
-      overflow-y: auto;       /* Dikey kaydırma aktif */
+      overflow-y: auto;
     }
 
     .hidden {
@@ -70,6 +82,8 @@
   </style>
 </head>
 <body>
+  <div id="stars"></div>
+
   <div class="envelope-container">
     <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" alt="Zarf" id="envelope" />
   </div>
@@ -79,6 +93,27 @@
   </div>
 
   <script>
+    // Yıldız animasyonu
+    const starsContainer = document.getElementById('stars');
+    const starCount = 150;
+
+    function randomRange(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    for (let i = 0; i < starCount; i++) {
+      const star = document.createElement('div');
+      star.classList.add('star');
+      const size = randomRange(1, 3);
+      star.style.width = size + 'px';
+      star.style.height = size + 'px';
+      star.style.top = randomRange(0, 100) + '%';
+      star.style.left = randomRange(0, 100) + '%';
+      star.style.animationDuration = randomRange(2, 4) + 's';
+      starsContainer.appendChild(star);
+    }
+
+    // Mektup metni
     const mektup = `Sevgili Anneciğim,
 
 Bu mektubu sana, içimden geçenleri bir kâğıda dökebilmek ve belki de senin yüzünde küçük bir gülümseme bırakabilmek için yazıyorum.
@@ -95,6 +130,7 @@ Senin evladın olmaktan gurur duyuyorum.
 Seni çok seven oğlun,
 Tuğra`;
 
+    // Zarf tıklama olayı
     document.getElementById("envelope").addEventListener("click", () => {
       document.getElementById("letter").classList.remove("hidden");
       document.getElementById("envelope").style.display = "none";
